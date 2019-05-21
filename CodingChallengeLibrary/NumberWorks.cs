@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CodingChallengeLibrary
 {
@@ -24,7 +25,40 @@ namespace CodingChallengeLibrary
 
         }
 
-         public List<Int32> GetFibonacciSequenceByLooping(Int32 maxSeed, Int32 seed0, Int32 seed1)
+        public List<Int32> GetFibonacciThroughRecursion(Int32 numItems, Int32 seed0, Int32 seed1)
+        {
+            Int32 listSize = numItems + 2;
+
+            List<Int32> retVal = Enumerable.Repeat(0, listSize).ToList<Int32>();
+            retVal[0] = seed0;
+            retVal[1] = seed1;
+            Int32 maxNum = GetFibonacciByRecursion(listSize, ref retVal);
+
+            return retVal;
+
+        }
+
+
+        private Int32 GetFibonacciByRecursion(Int32 numItems, ref List<Int32> fibList)
+        {
+            Int32 retVal = 0;
+
+            if (numItems > 2)
+            {
+                if (fibList[numItems - 1] == 0)
+                {
+                    fibList[numItems - 1] = GetFibonacciByRecursion(numItems - 1, ref fibList) +
+                                         GetFibonacciByRecursion(numItems - 2, ref fibList);
+                }
+
+            }
+
+            retVal = fibList[numItems - 1];
+
+            return retVal;
+        }
+
+        public List<Int32> GetFibonacciSequenceByLooping(Int32 maxSeed, Int32 seed0, Int32 seed1)
         {
 
             List<Int32> retVal = null;
@@ -92,7 +126,7 @@ namespace CodingChallengeLibrary
 
                 retVal = (sequence[0] * sequence[0]) + (sequence[1] * sequence[1]);
 
-                for (int i = 2; i < sequence.Count -1 ; i++)
+                for (int i = 2; i < sequence.Count - 1; i++)
                 {
                     retVal += sequence[i] * sequence[i];
                 }
@@ -157,7 +191,7 @@ namespace CodingChallengeLibrary
                     mostSides = Math.Max(numVerticalSides, numHorizontalSides);
                 }
 
-                retVal = (((leastSides * (leastSides + 1) * ((2 * leastSides) + 1))/ 6) + 
+                retVal = (((leastSides * (leastSides + 1) * ((2 * leastSides) + 1)) / 6) +
                          ((mostSides - leastSides) * leastSides * (leastSides + 1)) / 2);
 
             }

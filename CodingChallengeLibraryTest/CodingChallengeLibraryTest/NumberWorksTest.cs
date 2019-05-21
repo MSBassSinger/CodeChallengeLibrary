@@ -25,6 +25,22 @@ namespace CodingChallengeLibraryTest
         }  // END public void FibonacciLoopingDefaultTest()
 
         [TestMethod]
+        public void FibonacciRecursionDefaultTest()
+        {
+            try
+            {
+                NumberWorks fib = new NumberWorks();
+                List<Int32> retVal = fib.GetFibonacciThroughRecursion(10, 0, 1);
+
+                Assert.IsTrue(retVal[retVal.Count - 1] == 89);
+            }
+            catch (Exception exUnhandled)
+            {
+                Assert.Fail(exUnhandled.Message);
+            }
+        }  // END public void FibonacciLoopingDefaultTest()
+
+        [TestMethod]
         public void FibonacciLoopingSeededTest()
         {
             try
